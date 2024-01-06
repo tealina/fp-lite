@@ -94,7 +94,7 @@ const result = pipe(
    `pick` | `omit`
 
 3. 条件判断
-   `maybe` | `notNull` | `isEmpty` | `isZero`
+   `maybe` | `fallback` | `notNull` | `isEmpty` | `isZero`
 
 4. 其他
    `peek`|`invoke`

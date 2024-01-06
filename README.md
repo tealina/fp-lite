@@ -114,7 +114,7 @@ const result = pipe(
    `groupBy` | `separeBy`
 
 4. Functions for condition  
-   `maybe` | `notNull` | `isEmpty` | `isZero`
+   `maybe` | `fallback` | `notNull` | `isEmpty` | `isZero`
 
 5. Other functions  
    `peek`|`invoke`
