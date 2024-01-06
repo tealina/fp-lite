@@ -1,5 +1,11 @@
 # fp-lite
 
+## 2.1.0
+
+### Minor Changes
+
+- 60430ef: feat: new fallback function
+
 ## 2.0.0
 
 ### Major Changes
