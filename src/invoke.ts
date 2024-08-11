@@ -4,5 +4,8 @@
  * the `fn` should no change the `x`
  */
 export const invoke =
-  <T, P extends T = T>(fn: (x: P) => any) =>
-  (x: T): T => (fn(x as any), x)
+  <T, P extends T = T>(fn: (x: P) => unknown) =>
+  (x: T): T => {
+    fn(x as P)
+    return x
+  }

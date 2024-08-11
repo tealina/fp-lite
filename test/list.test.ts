@@ -68,7 +68,7 @@ describe('test list functions', () => {
       list,
       invoke(xs => expect(xs[0]).deep.eq(list[0])),
       x => x,
-      invoke(xs => expect(xs.at(-1)).deep.eq(list[2])),
+      invoke(xs => expect(xs.slice(-1)[0]).deep.eq(list[2])),
       groupBy(v => v.kind),
       g => g.values(),
       toList,

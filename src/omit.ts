@@ -2,7 +2,13 @@ export const omitFn = <T, Keys extends ReadonlyArray<keyof T>>(
   x: T,
   ...keys: Keys | ReadonlyArray<keyof T>
 ) =>
-  keys.reduce((acc, k) => (delete acc[k], acc), { ...x }) as {
+  keys.reduce(
+    (acc, k) => {
+      delete acc[k]
+      return acc
+    },
+    { ...x },
+  ) as {
     [K in Exclude<keyof T, Keys[number]>]: T[K]
   }
 

@@ -3,4 +3,7 @@
  */
 export const peek =
   <T>(label: string) =>
-  (x: T) => (console.log(label, x), x)
+  (x: T) => {
+    console.log(label, x)
+    return x
+  }

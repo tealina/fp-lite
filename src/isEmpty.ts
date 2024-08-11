@@ -1,5 +1,5 @@
 type CheckKeysLength = (
-  x: Record<PropertyKey, any> | ReadonlyArray<any>
+  x: Record<PropertyKey, unknown> | ReadonlyArray<unknown>,
 ) => boolean
 /**
  * Check object or array is empty.\

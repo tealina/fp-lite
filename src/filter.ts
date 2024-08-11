@@ -4,7 +4,7 @@ function filter<T>(f: (x: T) => unknown): (list: T[]) => T[]
 
 function filter<T>(f: (x: T) => unknown) {
   return (xs: T[]) => {
-    let results: any[] = []
+    const results: unknown[] = []
     for (let i = 0, len = xs.length; i < len; i++) {
       const v = xs[i]
       if (f(v)) {

@@ -1,7 +1,7 @@
 export const map =
   <T, R>(f: (x: T) => R) =>
   (xs: T[]): R[] => {
-    let results: any[] = []
+    const results: R[] = []
     for (let i = 0, len = xs.length; i < len; i++) {
       results.push(f(xs[i]))
     }
@@ -17,7 +17,7 @@ export const last = <T>(list: T[]) =>
 
 export const groupByFn = <T, R>(
   arr: T[],
-  keyMaker: (x: T) => R
+  keyMaker: (x: T) => R,
 ): Map<R, T[]> => {
   const acc = new Map()
   for (let i = 0; i < arr.length; i++) {
