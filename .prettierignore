@@ -1,7 +1,0 @@
-src/asyncFlow.ts
-src/flow.ts
-src/asyncCompose.ts
-src/compose.ts
-*.yaml
-dist
-.*
