@@ -1,6 +1,6 @@
 export const pickFn = <T, Keys extends ReadonlyArray<keyof T>>(
   x: T,
-  ...keys: Keys | ReadonlyArray<keyof T>
+  ...keys: Keys
 ) =>
   keys.reduce(
     (acc, k) => {
@@ -11,8 +11,6 @@ export const pickFn = <T, Keys extends ReadonlyArray<keyof T>>(
   )
 
 export const pick =
-  <T, Keys extends ReadonlyArray<keyof T>>(
-    ...keys: Keys | ReadonlyArray<keyof T>
-  ) =>
+  <T, Keys extends ReadonlyArray<keyof T>>(...keys: Keys) =>
   (x: T) =>
     pickFn(x, ...keys)
