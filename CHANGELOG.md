@@ -1,5 +1,11 @@
 # fp-lite
 
+## 2.1.1
+
+### Patch Changes
+
+- 6ff8279: 1. Upgrade devDependencies 2. Use biome instead prettier 3. Follow the lint rules
+
 ## 2.1.0
 
 ### Minor Changes
