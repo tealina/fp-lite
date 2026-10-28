@@ -4,24 +4,41 @@ on:
     workflows: ['CI']
     types:
       - completed
+    # 只跟随 main 上的 CI。没有这一行，任何分支的 CI 成功都会触发发布任务。
+    branches:
+      - main
   push:
     branches:
       - 'main'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+# 发布走 npm 的 Trusted Publishing（OIDC），不再使用 NPM_TOKEN。
+# contents / pull-requests 供 changesets 提交版本号、推 tag、开版本 PR；
+# id-token 才是换取 npm 发布凭证的那一项。写了 permissions 之后，没列出的权限会全部变成
+# none，三项缺一不可。
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # push 事件里没有 workflow_run 这个字段，只写后面那一半会把 push 触发全部挡掉。
+    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+
+      # 不写 version：action-setup 直接读 package.json 的 packageManager（pnpm@8.15.9），
+      # 两边都写会因版本串不一致直接报错。pnpm 8 是锁文件（lockfileVersion 6.0）对应的版本。
+      - uses: pnpm/action-setup@v4
+
+      # Node 24 自带 npm 11.x；Trusted Publishing 要求 npm CLI >= 11.5.1，
+      # Node 18/20 自带的 npm 10 换不到 OIDC 凭证。
+      - uses: actions/setup-node@v4
         with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+          node-version: 24
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
@@ -32,4 +49,5 @@ jobs:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # 不要加回 NPM_TOKEN / NODE_AUTH_TOKEN：发布凭证由上面的 id-token 现换，
+          # 留着旧 token 只是把已经废弃的那条路重新接回来。

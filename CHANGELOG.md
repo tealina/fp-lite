@@ -1,5 +1,11 @@
 # fp-lite
 
+## 2.1.2
+
+### Patch Changes
+
+- Publish through npm Trusted Publishing (OIDC) instead of a long-lived token. No runtime change.
+
 ## 2.1.1
 
 ### Patch Changes
